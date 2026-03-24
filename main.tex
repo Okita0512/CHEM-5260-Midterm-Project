@@ -62,11 +62,10 @@ wide-band approximation, damped two-level system, Poincar\'e recurrence}
 Quantum relaxation is a fundamental phenomenon in chemical physics that
 underlies processes ranging from intramolecular vibrational energy
 redistribution and electronic energy transfer to non-radiative decay and
-photochemical reactions~\cite{Nitzan}.  In its simplest idealization,
-a single initially populated ``bright'' or \emph{doorway} state is coupled
-to a dense manifold of background states; population leaks irreversibly out
-of the doorway state on a timescale governed by the manifold density of
-states and the coupling matrix elements.
+photochemical reactions~\cite{Nitzan}.  In a minimal doorway-state picture,
+an initially populated ``bright'' state is coupled to a dense manifold of
+background states, and population leaks out on a timescale governed by the
+manifold density of states and the coupling matrix elements.
 
 The analytical theory of such processes, developed via Green's function and
 self-energy methods~\cite{Nitzan,Weiss}, predicts that the survival probability of the doorway
@@ -93,12 +92,10 @@ incomplete relaxation.  In other words, the irreversible Markovian decay
 predicted by FGR is not a generic property of a finite bath, but a specific
 limit that must be demonstrated.
 
-In a true infinite continuum the exponential decay is exact and permanent.
-In any finite numerical simulation, however, the manifold is necessarily
-discrete and bounded, so the continuum picture must emerge as an approximation
-valid over a finite time window.  Understanding when and how the approximation
-breaks down is essential for reliably applying the theory to real molecular
-systems.
+In any finite numerical simulation, however, the manifold is discrete and
+bounded, so the continuum picture can only emerge as an approximation over a
+finite time window.  Understanding when and how that approximation breaks
+down is therefore essential.
 
 The present work addresses these questions through a combined analytical and
 numerical study of two finite-dimensional model Hamiltonians.  Model~A is
@@ -121,15 +118,16 @@ upstream-to-doorway transfer through a Breit--Wigner / Lorentzian line shape.
 
 The numerical part of the work is based on exact diagonalization of the full
 finite Hamiltonian, with no time-discretization or perturbative approximation.
-By varying the parameters $N$, $\Delta E$, $V_{1k}$, $V_{01}$, and the energy
-offset $E_0-E_1$, we test these analytical predictions against the exact
-dynamics and delineate the boundaries of the wide-band regime.  In
-particular, we show how finite-size recurrences, narrow bandwidths, and
-strong couplings drive systematic departures from exponential relaxation in
-Model~A, while in Model~B they modify the damped two-level picture and the
-crossover between monotonic transfer and damped Rabi oscillations.  We also
-compare uniform, random-sign, and Gaussian bath couplings to separate
-gauge-trivial sign disorder from genuine magnitude disorder.
+By varying $N$, $\Delta E$, $V_{1k}$, $V_{01}$, and $E_0-E_1$, we test the
+analytical predictions against the exact dynamics, identify the boundaries of
+the wide-band regime, and compare uniform, random-sign, and Gaussian bath
+couplings.
+
+The central questions addressed here are: (i) under what conditions does a
+finite discrete bath reproduce the exponential relaxation predicted by
+Fermi's golden rule? (ii) how does breakdown of the wide-band approximation
+manifest in finite systems? and (iii) how does the addition of an upstream
+state generate distinct overdamped, critical, and underdamped regimes?
 
 %-----------------------------------------------------------------------
 \section{Model Hamiltonians and Methods}
@@ -158,8 +156,11 @@ $\Delta E$ centred on $E_1$,
     E_k \in \Bigl[E_1 - \tfrac{\Delta E}{2},\; E_1 + \tfrac{\Delta E}{2}\Bigr],
     \label{eq:Ek}
 \end{equation}
-giving a level spacing $\epsilon = \Delta E/N$ and density of states
-$\rho = N/\Delta E$.  Without loss of generality we set $E_1 = 0$.
+giving a continuum density of states $\rho = N/\Delta E$.
+For the uniformly spaced numerical grids used below, the exact nearest-neighbour
+spacing is $\Delta\omega = \Delta E/(N-1)$, so that in the large-$N$ limit
+one has $\rho^{-1}\approx \Delta E/N \approx \Delta\omega$.  Without loss of
+generality we set $E_1 = 0$.
 
 The system is initialized in the doorway state, $\ket{\psi(0)} = \ket{1}$,
 and the principal observable is the survival probability
@@ -220,6 +221,13 @@ Three coupling schemes are compared throughout.
           \mathcal{N}(0,V^2)$, so that $\langle V_{1k}\rangle = 0$ and
           $\langle V_{1k}^2\rangle^{1/2} = V$.
 \end{enumerate}
+Throughout, we denote the root-mean-square doorway--bath coupling by
+\begin{equation*}
+    V_{\mathrm{rms}} \equiv \langle V_{1k}^2 \rangle^{1/2},
+\end{equation*}
+so that $V_{\mathrm{rms}}=V$ for all three schemes above.  Whenever a
+single characteristic coupling scale is needed analytically, we write
+$V \equiv V_{\mathrm{rms}}$.
 
 \subsection{Time-dependent Schr\"{o}dinger equation and exact diagonalization}
 \label{sec:TDSE}
@@ -394,6 +402,16 @@ If the wide-band approximation fails, the decay of $\ket{1}$ is no longer
 strictly Markovian and the simple damping classification below ceases to be
 quantitatively valid.
 
+The analytical treatment above relies on two linked assumptions of the
+wide-band approximation.  First, the bath density of states and coupling
+strength must vary only slowly across the resonance width, so that the
+self-energy may be treated as effectively energy independent.  Second, the
+bath must be sufficiently dense on the timescale of the decay that it can
+be treated as effectively continuous, i.e.\ $\rho^{-1}\lesssim\Gamma$.
+Violation of these assumptions through finite level spacing, narrow
+bandwidth, or strong coupling leads to the non-Markovian oscillations and
+Poincar\'e recurrences observed in the numerical results below.
+
 The damping classification is most transparent on resonance,
 $E_0=E_1\equiv E_\ast$.  Writing
 $c_j(t)=e^{-iE_\ast t}\tilde{c}_j(t)$ gives
@@ -417,7 +435,8 @@ oscillator.  The characteristic exponents are
     \sqrt{\left(\frac{\Gamma}{4}\right)^2 - V_{01}^2}.
     \label{eq:lambdaB}
 \end{equation}
-Therefore the relevant regimes are determined by the ratio $V_{01}/\Gamma$:
+Therefore the relevant regimes are determined by comparing $V_{01}$ with
+$\Gamma/4$:
 \begin{enumerate}
     \item \emph{Overdamped regime} ($V_{01}<\Gamma/4$):
     defining $\Omega_{\mathrm{od}} =
@@ -469,7 +488,11 @@ Therefore the relevant regimes are determined by the ratio $V_{01}/\Gamma$:
 These three regimes provide the analytical interpretation of the Model~B
 numerics discussed below: the bath sets the damping scale $\Gamma$, while
 $V_{01}$ controls whether the upstream-to-doorway transfer is monotonic,
-critically damped, or oscillatory.
+critically damped, or oscillatory.  Physically, the bath provides an
+effective irreversible decay channel for the doorway state $\ket{1}$ and
+therefore acts as a dissipative environment for the $\{\ket{0},\ket{1}\}$
+subsystem.  The competition between the coherent coupling $V_{01}$ and the
+dissipative rate $\Gamma$ is what generates the three damping regimes.
 
 %-----------------------------------------------------------------------
 \section{Results and Discussion}
@@ -678,7 +701,7 @@ not merely $\Gamma<\Delta E$.
     As $V_{1k}$ increases the resonance width $\Gamma$ approaches the
     bandwidth $\Delta E$, causing the exact decay to deviate progressively
     from the FGR exponential and eventually to exhibit sustained oscillations
-    (overdamped-to-underdamped crossover).}
+    (crossover from Markovian-looking decay to coherent oscillatory dynamics).}
     \label{fig:effectV}
 \end{figure}
 
@@ -739,7 +762,8 @@ to within statistical uncertainty.
     Parameters: $N=200$, $\Delta E=10$, $V_{1k}=0.05$, $E_0=E_1=0$,
     $\Gamma\approx0.314$, $\Gamma/4\approx0.0785$; $t_{\max}=40$.
     Solid lines: exact TDSE. Dashed lines: WBA analytical solution
-    (Eqs.~\ref{eq:lambdaB}--\ref{eq:damped_c0}).
+    from Sec.~\ref{sec:GF}, based on Eqs.~\ref{eq:damped_c0}
+    and \ref{eq:lambdaB}.
     Blue: $P_0(t)$; orange: $P_1(t)$; green: $P_K(t)=1-P_0-P_1$.
     Upper row (A--C): overdamped side of the transition.
     \textbf{(A)} $V_{01}=0.01$ ($V_{01}/(\Gamma/4)=0.13$, very overdamped):
@@ -761,8 +785,10 @@ to within statistical uncertainty.
 In Model~B the population must flow from $\ket{0}$ to $\ket{1}$ before it
 can relax into the bath manifold.  As derived in Sec.~\ref{sec:GF},
 integrating out the bath in the wide-band limit reduces the $\ket{0}$--$\ket{1}$
-subspace to a damped harmonic oscillator (Eq.~\ref{eq:damped_c0}), with the
-bath setting $\Gamma$ and $V_{01}$ playing the role of the restoring frequency.
+subspace to a damped two-level problem; on resonance, the amplitude
+$c_0(t)$ satisfies the same second-order equation as a damped harmonic
+oscillator [Eq.~\eqref{eq:damped_c0}], with the bath setting $\Gamma$
+and $V_{01}$ playing the role of the restoring frequency.
 The critical threshold is $V_{01}=\Gamma/4\approx0.0785$.
 Figure~\ref{fig:seqFlow} surveys five representative values of $V_{01}$
 at fixed $N=200$, $\Delta E=10$, $V_{1k}=0.05$ ($\Gamma\approx0.314$),
@@ -819,7 +845,7 @@ wide-band approximation across the full parameter range.
     population remains trapped in $\ket{0}$ over the window.
     Positive and negative detunings give identical dynamics, confirming
     the energy-reflection symmetry of the bath.
-    \textbf{(C)} Extracted population decay rate $\gamma_\mathrm{eff}$ vs\
+    \textbf{(C)} Extracted population decay rate $\gamma_\mathrm{eff}$ versus
     $\Delta_{01}$ (circles: $\Delta_{01}>0$; squares: $\Delta_{01}<0$),
     overlaid with the WBA Lorentzian
     $\gamma_\mathrm{eff}=V_{01}^{2}\Gamma/(\Delta_{01}^{2}+(\Gamma/2)^{2})$
@@ -874,7 +900,7 @@ decay process.
     \textbf{Effect of bath size $N$ in Model~B at fixed reorganization energy.}
     Following the design of Fig.~\ref{fig:effectN}, $V_{1k}$ is scaled as
     $V_{1k}(N)=V_{\rm ref}\sqrt{N_{\rm ref}/N}$ with $V_{\rm ref}=0.05$,
-    $N_{\rm ref}=200$ so that $NV_{1k}^{2}=0.5$ and
+    $N_{\rm ref}=200$ so that $\Lambda = NV_{1k}^{2}=0.5$ and
     $\Gamma\approx0.314$ are held constant.
     The upstream coupling is fixed at $V_{01}=0.04$ (overdamped,
     same as Fig.~\ref{fig:resonance}); $\Delta E=10$, $E_0=E_1=0$.
@@ -882,7 +908,7 @@ decay process.
     $N=100$ ($V_{1k}=0.071$, $T_{\rm rec}=62.2$),
     $N=200$ ($V_{1k}=0.050$, $T_{\rm rec}=125.0$).
     Black dashed line: $N\!\to\!\infty$ WBA analytical result
-    (Sec.~\ref{sec:GF}, Eq.~\ref{eq:damped_c0}).
+    from Sec.~\ref{sec:GF}.
     Black downward arrows point to the Poincar\'e revival feature
     (local maximum in $P_0$, $P_1$; local minimum in $P_K$) for each $N$.
     \textbf{(A)} Upstream population $P_0(t)$: all three finite-$N$ curves
@@ -897,7 +923,7 @@ decay process.
 \end{figure*}
 
 Figure~\ref{fig:effectNB} compares $N=50$, $100$, $200$ with $V_{1k}$
-scaled to keep $\Gamma\approx0.314$ and $NV_{1k}^{2}=0.5$ fixed, and
+scaled to keep $\Gamma\approx0.314$ and $\Lambda = NV_{1k}^{2}=0.5$ fixed, and
 with $V_{01}=0.04$ (overdamped, same parameter regime as Fig.~\ref{fig:resonance}).
 The black dashed line shows the $N\!\to\!\infty$ WBA analytical result from
 Sec.~\ref{sec:GF}: in this limit the bath is a true continuum and no Poincar\'e
@@ -958,7 +984,7 @@ the variance grows over the observation window.
 $P_1(t)$ shows a larger relative variance near its transient peak: realisations
 with stronger bath couplings drain $\ket{1}$ faster, producing an earlier and
 smaller peak.  The bath population $P_K(t)$ mirrors the complementary
-variance — when $P_0$ and $P_1$ fluctuate, the excess probability must reside
+variance: when $P_0$ and $P_1$ fluctuate, the excess probability must reside
 in the bath, so the spread in $P_K$ reflects the combined disorder from both
 upstream states.
 
@@ -1026,31 +1052,30 @@ the transient doorway population and in late-time recurrence features.
 \end{enumerate}
 
 Taken together, these results provide a unified picture of doorway-state
-relaxation in finite systems.  The wide-band approximation supplies the
-bridge from finite Hamiltonians to irreversible-looking decay, while the
-exact numerics make clear where that bridge holds and where it breaks down.
-For Model~A this yields the standard FGR exponential regime and its
-finite-size corrections; for Model~B it yields a damped two-level problem
-whose monotonic, critical, and oscillatory transfer regimes are all observed
-directly in the exact dynamics.
+relaxation in finite systems.  The wide-band approximation is the bridge
+from finite Hamiltonians to irreversible-looking decay, and the exact
+numerics show where that bridge holds and where it fails.  More
+fundamentally, irreversible relaxation is not an intrinsic property of a
+finite quantum system, but an emergent continuum-limit phenomenon in which
+phase randomization suppresses coherent recurrences over the timescale of
+observation.
 
-At the same time, the present study remains intentionally minimal.  The bath
-is represented by a finite set of discrete levels and the analysis is
-effectively restricted to zero-temperature relaxation, with no explicit
-molecular vibrational coordinates such as harmonic oscillators included in
-the Hamiltonian.  These simplifications make the origin and breakdown of the
-wide-band approximation especially transparent, but they also limit the
-direct chemical realism of the models.
+At the same time, the present study remains intentionally minimal: the bath
+is represented by discrete levels, the analysis is effectively restricted to
+zero-temperature relaxation, and no explicit molecular vibrational
+coordinates are included.  These simplifications clarify the origin and
+breakdown of the wide-band approximation, but they also limit direct
+chemical realism.
 
-A natural direction for future work is therefore to embed the present
-doorway-state picture in more microscopic open-system models.  In
-particular, it would be valuable to replace the discrete phenomenological
-bath by an explicit oscillator environment, for example in the spirit of the
-Caldeira--Leggett model~\cite{Caldeira_Leggett_1983,Leggett_1984,Weiss}, so that temperature effects, spectral densities,
-memory kernels, and vibronic structure can all be treated on the same
-footing.  Such extensions would provide a more complete connection between
-the simple finite-dimensional models studied here and realistic molecular
-relaxation dynamics.
+Future work should embed the present doorway-state picture in more
+microscopic open-system models.  In particular, replacing the discrete
+phenomenological bath by an explicit oscillator environment, such as a
+Caldeira--Leggett model~\cite{Caldeira_Leggett_1983,Leggett_1984,Weiss},
+would allow temperature effects, spectral densities, memory kernels, and
+vibronic structure to be treated on the same footing.  Even in their present
+form, however, these models provide a useful minimal framework for
+understanding relaxation in molecular systems, nanoscale devices, and open
+quantum systems with structured environments.
 
 %-----------------------------------------------------------------------
 \section*{Data and code availability}
