@@ -1,0 +1,13 @@
+# Generated simulation data (reproducible by running simulate.py in each subdirectory)
+**/data/
+
+# LaTeX build artifacts
+*.aux
+*.bbl
+*.blg
+*.fdb_latexmk
+*.fls
+*.log
+*.out
+*.synctex.gz
+*.toc

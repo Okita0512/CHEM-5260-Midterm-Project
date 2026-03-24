@@ -1,0 +1,127 @@
+% Grading criteria for CHEM 5260 Midterm Project
+% Compile with: pdflatex criteria.tex
+\documentclass[12pt,letterpaper]{article}
+
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb}
+\usepackage{braket}
+\usepackage{parskip}
+
+\begin{document}
+
+\begin{center}
+  {\large\bfseries CHEM 5260 Midterm Project --- Criteria for a Successful Report}\\[0.5em]
+  {\normalsize Spring 2026}
+\end{center}
+
+\bigskip
+
+A successful project report should function as a short scientific paper: it
+should state a clear physical question, define the model precisely, derive
+the relevant analytical benchmarks, present numerical results that test those
+benchmarks, and explain the physical meaning of the observed agreement and
+breakdown.  The following criteria define what such a report should contain.
+
+\begin{enumerate}
+
+\item \textbf{Organized structure.}
+  The report should follow the format of a scientific paper and include all
+  standard sections:
+  \begin{itemize}
+    \item \textit{Introduction} --- motivate the problem, place it in the
+          context of quantum relaxation, Fermi's golden rule, and the
+          wide-band approximation, and state clearly what the project
+          investigates.
+    \item \textit{Model and Methods} --- define the Hamiltonian(s), specify
+          initial conditions and observables, and explain how the time
+          evolution is computed.  The report should explain both the exact
+          numerical propagation (e.g.\ exact diagonalization of the TDSE) and
+          the analytical theory used as a benchmark.
+    \item \textit{Results and Discussion} --- present numerical findings with
+          figures, compare them to analytical expectations, and interpret
+          them physically.
+    \item \textit{Conclusion} --- summarize the key physical takeaways,
+          limitations of the present models, and reasonable directions for
+          future extensions.
+  \end{itemize}
+
+\item \textbf{Analytical content.}
+  A successful report must contain a coherent analytical framework, not only
+  numerical plots.  At minimum, the theory should establish the following:
+  \begin{itemize}
+    \item For \textit{Model A}, the Green's-function / self-energy derivation
+          of exponential decay under the wide-band approximation, including
+          the condition
+          $\rho^{-1}\lesssim \Gamma \ll \Delta E$ and the FGR rate
+          $\Gamma = 2\pi |V|^2 \rho$.
+    \item For \textit{Model B}, the reduction of the $\{\ket{0},\ket{1}\}$
+          subspace to a damped two-level problem when the doorway state
+          $\ket{1}$ is assumed to undergo Markovian decay under the same
+          wide-band approximation.
+    \item The identification of overdamped, critically damped, and
+          underdamped regimes in Model~B, with the threshold
+          $V_{01}=\Gamma/4$.
+    \item A clear statement of what assumptions enter the theory and where
+          they may fail.
+  \end{itemize}
+
+\item \textbf{Numerical coverage.}
+  The numerical investigation should test the analytical picture over the
+  main control parameters of the model.  At minimum, the report should
+  include and discuss:
+  \begin{itemize}
+    \item \textit{Model A}: dependence on bath size $N$, bath bandwidth
+          $\Delta E$, and coupling strength $V_{1k}$;
+    \item the connection between $N$, the recurrence time
+          $T_\mathrm{rec}\sim 2\pi N/\Delta E$, and the finite-time validity
+          of exponential decay;
+    \item the role of the coupling disorder, including random-sign and
+          Gaussian-random $V_{1k}$;
+    \item \textit{Model B}: dependence on the upstream coupling $V_{01}$ and
+          explicit demonstration of overdamped, critical, and underdamped
+          transfer;
+    \item the effect of detuning $E_0-E_1$ and its relation to the resonance
+          / Lorentzian line shape;
+    \item at least one explicit comparison between exact numerical results
+          and the analytical benchmark wherever the benchmark is expected to
+          apply.
+  \end{itemize}
+
+\item \textbf{Figure quality and interpretation.}
+  The report should present figures at publication quality.  Each figure
+  should have:
+  \begin{itemize}
+    \item a descriptive caption that explains what is shown and what
+          parameters are used;
+    \item properly labeled axes with the quantity name and unit (or an
+          explicit statement that the quantity is dimensionless);
+    \item legends or line labels that identify each curve clearly;
+    \item discussion in the main text that states the key physical message of
+          the figure, not merely a repetition of the caption.
+  \end{itemize}
+
+\item \textbf{Consistency of notation and physical interpretation.}
+  The report should define important quantities explicitly and use them
+  consistently.  Examples include the density of states $\rho$, the bandwidth
+  $\Delta E$, the FGR rate $\Gamma$, the recurrence time $T_\mathrm{rec}$,
+  and any derived quantity such as the reorganization-energy measure
+  $\Lambda = \sum_k |V_{1k}|^2$ used to organize the $N$-dependence.  If a
+  term is used in a nonstandard sense, the report should say so clearly.
+
+\item \textbf{Scientific writing and citation practice.}
+  A successful report should read like a coherent scientific argument rather
+  than a lab notebook.  This means:
+  \begin{itemize}
+    \item claims should be supported by equations, figures, or citations;
+    \item analytical statements should be distinguished from numerical
+          observations;
+    \item limitations of the present models should be acknowledged;
+    \item literature citations should be included for standard concepts such
+          as Fermi's golden rule, Green's-function / self-energy treatments,
+          damped two-level (Rabi) dynamics, and possible future generalizations
+          such as oscillator-bath models.
+  \end{itemize}
+
+\end{enumerate}
+
+\end{document}
